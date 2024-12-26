@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+     <style>
+        body {
+    /* font-family: Arial, sans-serif; */
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.form-container {
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 550px;
+    text-align: center;
+    background-color: #f7d3c0;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+h2 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+ .labels{
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 4px;
+    color: #333;
+}
+
+form input {
+    width: 90%;
+    padding: 12px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+button {
+    border: 2px solid black;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+button:hover {
+    background-color: #555;
+}
+span{
+    color: red;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+     </style>
+</head>
+<body>
+    <div class="form-container">
+        <form action="welcome.html" method="get" onsubmit="return validate()">
+            <fieldset>
+                <legend align="center"><h2>Registration Form</h2></legend>
+            <label for="username" class="labels">Username:</label>
+            <input type="text" id="username" placeholder="Enter your name" maxlength="15"><br>
+            <span></span><br>
+
+            <label for="password" class="labels">Password:</label>
+            <input type="password" id="password" placeholder="Enter your password" maxlength="15"><br>
+            <span></span><br>
+
+            <label for="confirm-password" class="labels">Confirm-password:</label>
+            <input type="password" id="confirm-password" placeholder="Confirm your password" maxlength="15"><br>
+            <span></span><br>
+
+            <label for="email" class="labels">Email-id:</label>
+            <input type="email" id="email" placeholder="Enter your email-id"><br>
+            <span></span><br>
+
+            <label for="mobile" class="labels">Mobile number: +91</label>
+            <input type="text" id="mobile" placeholder="Your 10 digit mobile number" maxlength="10"><br>
+            <span></span><br>
+
+            <div class="button-container">
+                <button type="submit">Submit</button>
+                <button type="reset">Reset</button>
+            </div>
+        </form>
+        </fieldset>
+    </div>
+    <script>
+        function validate(){
+            let inputs = document.querySelectorAll("input");
+
+        let user = inputs[0].value;
+        let pass = inputs[1].value;
+        let cpass = inputs[2].value;
+        let email = inputs[3].value;
+        let mob = inputs[4].value;
+
+        // console.log(user,pass,cpass,email,mob);
+
+        let spanmsg = document.querySelectorAll("span");
+        // console.log(spanmsg)
+
+        // For UseName Feild
+
+        if(user == ""){
+            spanmsg[0].innerHTML = "⚠ Feilds cannot be empty." ;
+            return false;
+        }
+        else if(!isNaN(user)){
+            spanmsg[0].innerHTML ="⚠ Invalid inputs number are not allowed!";
+            return false;
+        }
+        else{
+            spanmsg[0].innerHTML = "";
+        }
+
+        // For Password Feild
+
+        if(pass.length < 8 || pass == ""){
+            spanmsg[1].innerHTML = "⚠ Minimum 8 Charactors are required and it must be combination of uppercase,lowercase,number and symbols.";
+            return false;
+        }
+        else if(pass.search(/[a-z]/)==-1 || pass.search(/[A-Z]/)==-1 || pass.search(/[0-9]/) ==-1 || pass.search(/[@/!/*/$/]/) ==-1){
+            spanmsg[1].innerHTML = "⚠ Atleast 1 lower case, 1 uppercase and 1 special charactor is required.";
+            return false;
+        }
+        else{
+            spanmsg[1].innerHTML = "";
+        }
+
+        // For Confirm Password Feild
+
+        if(cpass == ""){
+            spanmsg[2].innerHTML = "⚠ Please Fill The Empty Space With Your Password";
+            return false;
+        }
+        else if(cpass !== pass){
+            spanmsg[2].innerHTML = "⚠ Password Is Not Matching.";
+            return false;
+        }
+        else{
+            spanmsg[2].innerHTML = "";
+        }
+
+        // For Email Feild
+
+        if(email == ""){
+            spanmsg[3].innerHTML = "⚠ Warning! email cannot be empty...";
+            return false;
+        }
+        else if(email.indexOf('@') <= 1 || email.indexOf('.') <= 1){
+            spanmsg[3].innerHTML = "⚠ Warning Invalid Email...";
+            return false;
+        }
+        else if(email.charAt(email.length - 4) != '.' && email.charAt(email.length -3) != '.' || email.search(/[@.]{2,}/) != -1){
+            spanmsg[3].innerHTML = "⚠ Warning! invalid2 email...";
+            return false;
+        }
+        else{
+            spanmsg[3].innerHTML = "";
+        }
+
+        // For Mobail Number Feild
+
+        if(mob == ""){
+            spanmsg[4].innerHTML = "Mobile Number Is Mandatory";
+            return false
+        }
+        else if(isNaN(mob) || mob.length < 10){
+            spanmsg[4].innerHTML = "Invalid Input";
+        }
+        else{
+            spanmsg[4].innerHTML = "";
+            return false;
+        }
+    }
+    </script>
+</body>
+</html>
